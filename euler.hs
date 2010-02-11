@@ -1,6 +1,8 @@
 module Euler
        (factors
-       ,fermat) where
+       ,fermat
+	,lcm
+       ,primes) where
 
 import qualified Data.List as List
 import qualified Data.Map as Map
@@ -23,6 +25,9 @@ factors :: (Integer -> [Integer]) -> Integer -> [Integer]
 factors f n
   | even n = 2 : factors f (n `div` 2)
   | otherwise = f n
+
+primes = turnerSieve [2..]
+turnerSieve (p : xs) = p : turnerSieve [x | x <- xs, x `mod` p > 0]
 
 lcm :: [Integer] -> Integer
 lcm x
